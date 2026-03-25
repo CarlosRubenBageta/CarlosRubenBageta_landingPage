@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carlos Rubén Bageta · Data & AI Consulting</title>
+  <meta name="description" content="Consultoría de datos, automatizaciones con IA y pipelines de datos. Mendoza, Argentina.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:        #0f1117;
+      --ink-soft:   #3a3d4a;
+      --ink-muted:  #6b7080;
+      --paper:      #f7f5f0;
+      --paper-warm: #ede9e0;
+      --paper-card: #ffffff;
+      --accent:     #1a3a6b;
+      --accent-mid: #2d5fa8;
+      --accent-lt:  #dce8f7;
+      --teal:       #0e6b5a;
+      --teal-lt:    #d4f0ea;
+      --amber:      #b85c00;
+      --amber-lt:   #fdebd6;
+      --rule:       rgba(15,17,23,0.10);
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1020px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(247,245,240,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      padding: 14px 0;
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo em { font-style: italic; color: var(--accent-mid); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a {
+      font-size: 13.5px;
+      font-weight: 400;
+      color: var(--ink-soft);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--paper-card);
+      background: var(--accent);
+      border: none;
+      padding: 9px 20px;
+      border-radius: 100px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: var(--accent-mid); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 96px 0 80px;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--accent-mid);
+      margin-bottom: 22px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px; height: 1.5px;
+      background: var(--accent-mid);
+    }
+    .hero-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(38px, 5vw, 56px);
+      line-height: 1.10;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 22px;
+    }
+    .hero-title em { font-style: italic; color: var(--accent-mid); }
+    .hero-desc {
+      font-size: 16.5px;
+      font-weight: 300;
+      color: var(--ink-soft);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 500;
+      color: var(--paper-card);
+      background: var(--accent);
+      padding: 13px 26px;
+      border-radius: 100px;
+      text-decoration: none;
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--accent-mid); transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 400;
+      color: var(--ink-soft);
+      background: transparent;
+      padding: 13px 24px;
+      border-radius: 100px;
+      border: 1.5px solid var(--rule);
+      text-decoration: none; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--ink-soft); color: var(--ink); }
+
+    /* Hero card */
+    .hero-card {
+      background: var(--paper-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--rule);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-mid) 50%, var(--teal) 100%);
+    }
+    .avatar-ring {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--accent-lt);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      color: var(--accent);
+      margin-bottom: 16px;
+      border: 2px solid var(--accent-lt);
+    }
+    .card-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: var(--ink);
+      margin-bottom: 3px;
+      letter-spacing: -0.02em;
+    }
+    .card-role {
+      font-size: 12.5px;
+      color: var(--ink-muted);
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+    .card-divider { height: 1px; background: var(--rule); margin-bottom: 18px; }
+    .card-stat-row { display: flex; gap: 0; }
+    .card-stat {
+      flex: 1;
+      text-align: center;
+      padding: 12px 8px;
+      border-right: 1px solid var(--rule);
+    }
+    .card-stat:last-child { border-right: none; }
+    .card-stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .card-stat-label { font-size: 10.5px; color: var(--ink-muted); letter-spacing: 0.04em; margin-top: 1px; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+    .ctag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: var(--paper);
+      color: var(--ink-soft);
+      border: 1px solid var(--rule);
+    }
+    .ctag.blue { background: var(--accent-lt); color: var(--accent); border-color: transparent; }
+    .ctag.teal { background: var(--teal-lt); color: var(--teal); border-color: transparent; }
+    .ctag.amber { background: var(--amber-lt); color: var(--amber); border-color: transparent; }
+
+    /* ── SECTION BASE ── */
+    section { padding: 80px 0; }
+    .sec-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11.5px; font-weight: 500;
+      letter-spacing: 0.10em; text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 14px;
+    }
+    .sec-label::before {
+      content: '';
+      display: block; width: 20px; height: 1px;
+      background: var(--ink-muted);
+    }
+    .sec-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 4vw, 38px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+    .sec-title em { font-style: italic; color: var(--accent-mid); }
+    .sec-desc {
+      font-size: 15.5px;
+      font-weight: 300;
+      color: var(--ink-soft);
+      line-height: 1.75;
+      max-width: 580px;
+      margin-bottom: 48px;
+    }
+
+    /* ── SERVICES ── */
+    #servicios { border-top: 1px solid var(--rule); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .svc-card {
+      background: var(--paper-card);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .svc-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(15,17,23,0.08); }
+    .svc-card::after {
+      content: attr(data-num);
+      position: absolute;
+      bottom: -12px; right: 16px;
+      font-family: 'DM Serif Display', serif;
+      font-size: 80px;
+      color: var(--paper);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .svc-icon {
+      width: 40px; height: 40px;
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .svc-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 19px;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .svc-desc {
+      font-size: 13.5px;
+      font-weight: 300;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .svc-stack { display: flex; flex-wrap: wrap; gap: 5px; }
+    .stag {
+      font-size: 10.5px;
+      padding: 3px 9px;
+      border-radius: 100px;
+      background: var(--paper);
+      color: var(--ink-muted);
+      border: 1px solid var(--rule);
+      font-weight: 400;
+    }
+
+    /* ── PROJECTS ── */
+    #proyectos { background: var(--paper-warm); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .proj-card {
+      background: var(--paper-card);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s;
+    }
+    .proj-card:hover { transform: translateY(-2px); }
+    .proj-accent { height: 3px; border-radius: 2px; margin-bottom: 18px; }
+    .proj-type {
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+    .proj-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .proj-desc {
+      font-size: 12.5px;
+      font-weight: 300;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 14px;
+    }
+    .proj-stack { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 14px; }
+    .ptag {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 100px;
+      background: var(--paper);
+      color: var(--ink-muted);
+      border: 1px solid var(--rule);
+    }
+    .proj-link {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent-mid);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: gap 0.2s;
+    }
+    .proj-link:hover { gap: 8px; }
+
+    /* ── ABOUT ── */
+    #sobre-mi { border-top: 1px solid var(--rule); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 60px;
+      align-items: start;
+    }
+    .about-text {
+      font-size: 15.5px;
+      font-weight: 300;
+      color: var(--ink-soft);
+      line-height: 1.80;
+    }
+    .about-text p { margin-bottom: 18px; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text strong { font-weight: 500; color: var(--ink); }
+    .creds-panel {
+      background: var(--paper-card);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .creds-header {
+      background: var(--accent);
+      padding: 14px 20px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+    .cred-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 20px;
+      border-bottom: 1px solid var(--rule);
+      font-size: 12.5px;
+    }
+    .cred-item:last-child { border-bottom: none; }
+    .cred-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent-mid);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .cred-text { color: var(--ink-soft); line-height: 1.4; }
+    .cred-year { font-size: 11px; color: var(--ink-muted); margin-top: 1px; }
+
+    /* ── FORMACION ── */
+    #formacion { border-top: 1px solid var(--rule); background: var(--paper); }
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .cert-card {
+      background: var(--paper-card);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+    .cert-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 100px;
+      margin-bottom: 12px;
+    }
+    .cert-title {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 4px;
+      line-height: 1.35;
+    }
+    .cert-inst { font-size: 12px; color: var(--ink-muted); }
+
+    /* ── CONTACT ── */
+    #contacto {
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    #contacto .sec-label { color: rgba(255,255,255,0.4); }
+    #contacto .sec-label::before { background: rgba(255,255,255,0.3); }
+    #contacto .sec-title { color: #fff; }
+    #contacto .sec-title em { color: #7aadec; }
+    #contacto .sec-desc { color: rgba(255,255,255,0.55); }
+    .contact-row { display: flex; gap: 14px; flex-wrap: wrap; }
+    .contact-btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-size: 14px; font-weight: 400;
+      padding: 13px 24px;
+      border-radius: 100px;
+      text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.85);
+      background: transparent;
+      transition: background 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+    .contact-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.35); }
+    .contact-btn.primary-dark {
+      background: var(--accent-mid);
+      border-color: var(--accent-mid);
+      color: #fff;
+    }
+    .contact-btn.primary-dark:hover { background: #3d70c0; border-color: #3d70c0; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 24px 0;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 15px;
+      color: rgba(255,255,255,0.6);
+    }
+    .footer-logo em { font-style: italic; color: #7aadec; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.6s ease both; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; padding: 60px 0 48px; gap: 40px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .certs-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero-card { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">Carlos <em>Bageta</em></a>
+        <div class="nav-links">
+          <a href="#servicios">Servicios</a>
+          <a href="#proyectos">Proyectos</a>
+          <a href="#sobre-mi">Sobre mí</a>
+          <a href="#formacion">Formación</a>
+          <a href="#contacto" class="nav-cta">Contacto</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero container">
+    <div>
+      <div class="hero-eyebrow fade-up">Data & AI Consulting · Mendoza, Argentina</div>
+      <h1 class="hero-title fade-up delay-1">
+        Datos e <em>inteligencia artificial</em> al servicio de tu negocio
+      </h1>
+      <p class="hero-desc fade-up delay-2">
+        Construyo pipelines de datos, modelos predictivos y automatizaciones con IA para empresas que quieren tomar decisiones más inteligentes. Rigor matemático aplicado con tecnología de vanguardia.
+      </p>
+      <div class="hero-actions fade-up delay-3">
+        <a href="#servicios" class="btn-primary">
+          Ver servicios
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="https://github.com/CarlosRubenBageta" target="_blank" class="btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 0.5C3.41 0.5 0.5 3.41 0.5 7c0 2.87 1.86 5.3 4.44 6.16.32.06.44-.14.44-.31v-1.09c-1.8.39-2.18-.87-2.18-.87-.3-.75-.72-.95-.72-.95-.59-.4.04-.4.04-.4.65.05 1 .67 1 .67.58 1 1.52.71 1.89.54.06-.42.23-.71.41-.87-1.43-.16-2.94-.72-2.94-3.19 0-.7.25-1.28.67-1.73-.07-.16-.29-.82.06-1.71 0 0 .54-.17 1.78.67A6.2 6.2 0 0 1 7 3.92c.55 0 1.1.07 1.62.22 1.23-.84 1.77-.67 1.77-.67.35.89.13 1.55.06 1.71.42.45.67 1.03.67 1.73 0 2.48-1.51 3.03-2.95 3.19.23.2.44.59.44 1.19v1.77c0 .17.11.37.44.31A6.51 6.51 0 0 0 13.5 7C13.5 3.41 10.59.5 7 .5Z" fill="currentColor"/></svg>
+          GitHub
+        </a>
+        <a href="https://linkedin.com/in/crbageta" target="_blank" class="btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0.5" y="0.5" width="13" height="13" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M3 5.5v5M3 3.5v.5M5.5 10.5V7.5c0-1.1.9-2 2-2s2 .9 2 2v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-card fade-up delay-4">
+      <div class="avatar-ring">CB</div>
+      <div class="card-name">Carlos Rubén Bageta</div>
+      <div class="card-role">Data Engineer · Data Scientist · AI Automation</div>
+      <div class="card-divider"></div>
+      <div class="card-stat-row">
+        <div class="card-stat">
+          <div class="card-stat-num">25+</div>
+          <div class="card-stat-label">Años exp.</div>
+        </div>
+        <div class="card-stat">
+          <div class="card-stat-num">MSc</div>
+          <div class="card-stat-label">Matemática</div>
+        </div>
+        <div class="card-stat">
+          <div class="card-stat-num">3</div>
+          <div class="card-stat-label">Bootcamps</div>
+        </div>
+      </div>
+      <div class="card-tags">
+        <span class="ctag blue">Python · PySpark</span>
+        <span class="ctag teal">GCP · Airflow</span>
+        <span class="ctag amber">LLMs · n8n</span>
+        <span class="ctag">scikit-learn</span>
+        <span class="ctag">Supabase</span>
+        <span class="ctag">Tableau</span>
+        <span class="ctag">SQL</span>
+        <span class="ctag">Docker</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="container">
+      <div class="sec-label">Servicios</div>
+      <h2 class="sec-title">¿En qué puedo <em>ayudarte</em>?</h2>
+      <p class="sec-desc">Trabajo con empresas, PyMEs y equipos que quieren aprovechar sus datos y la IA para tomar mejores decisiones y automatizar procesos repetitivos.</p>
+
+      <div class="services-grid">
+
+        <div class="svc-card" data-num="01">
+          <div class="svc-icon" style="background:var(--accent-lt);">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 14h14M2 10h9M2 6h5" stroke="#1a3a6b" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <div class="svc-title">Consultoría de datos y analytics</div>
+          <p class="svc-desc">Diagnóstico de madurez analítica, diseño de estrategia de datos y acompañamiento en implementación. Transformo datos dispersos en información útil para decisiones de negocio.</p>
+          <div class="svc-stack">
+            <span class="stag">SQL</span><span class="stag">Python</span><span class="stag">Tableau</span><span class="stag">BigQuery</span><span class="stag">Estadística</span>
+          </div>
+        </div>
+
+        <div class="svc-card" data-num="02">
+          <div class="svc-icon" style="background:var(--teal-lt);">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="3" stroke="#0e6b5a" stroke-width="1.6"/><path d="M9 2v2M9 14v2M2 9h2M14 9h2M4.1 4.1l1.4 1.4M12.5 12.5l1.4 1.4M4.1 13.9l1.4-1.4M12.5 5.5l1.4-1.4" stroke="#0e6b5a" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="svc-title">Automatizaciones con IA</div>
+          <p class="svc-desc">Diseño e implementación de flujos automatizados usando LLMs y herramientas de IA generativa. Desde procesamiento inteligente de documentos hasta asistentes especializados para tu negocio.</p>
+          <div class="svc-stack">
+            <span class="stag">n8n</span><span class="stag">LLMs</span><span class="stag">Supabase</span><span class="stag">Make</span><span class="stag">APIs IA</span><span class="stag">MCP</span>
+          </div>
+        </div>
+
+        <div class="svc-card" data-num="03">
+          <div class="svc-icon" style="background:#eeedfe;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 16 L5 9 L9 13 L12 5 L16 2" stroke="#534AB7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          </div>
+          <div class="svc-title">Pipelines de datos</div>
+          <p class="svc-desc">Construcción de arquitecturas ETL/ELT robustas, orquestación con Airflow y procesamiento distribuido con PySpark sobre GCP. Datos confiables y disponibles cuando los necesitás.</p>
+          <div class="svc-stack">
+            <span class="stag">PySpark</span><span class="stag">Airflow</span><span class="stag">GCP</span><span class="stag">Docker</span><span class="stag">Kafka</span><span class="stag">ETL/ELT</span>
+          </div>
+        </div>
+
+        <div class="svc-card" data-num="04">
+          <div class="svc-icon" style="background:var(--amber-lt);">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="11" width="4" height="5" rx="1" fill="#b85c00"/><rect x="7" y="7" width="4" height="9" rx="1" fill="#b85c00"/><rect x="12" y="3" width="4" height="13" rx="1" fill="#ef9f27"/></svg>
+          </div>
+          <div class="svc-title">Formación empresarial en datos</div>
+          <p class="svc-desc">Capacitación in-company para equipos en reconversión o que quieren usar datos en su trabajo cotidiano. Talleres prácticos adaptados al sector, nivel y objetivos del equipo.</p>
+          <div class="svc-stack">
+            <span class="stag">Python</span><span class="stag">SQL</span><span class="stag">IA aplicada</span><span class="stag">Visualización</span><span class="stag">Estadística</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section id="proyectos">
+    <div class="container">
+      <div class="sec-label">Proyectos</div>
+      <h2 class="sec-title">Trabajo real, <em>código verificable</em></h2>
+      <p class="sec-desc">Proyectos con datos reales, stack técnico documentado y resultados concretos. Todo disponible en GitHub y HuggingFace.</p>
+
+      <div class="projects-grid">
+
+        <div class="proj-card">
+          <div class="proj-accent" style="background: linear-gradient(90deg,#1a3a6b,#2d5fa8);"></div>
+          <div class="proj-type">Data Engineering</div>
+          <div class="proj-title">Pipeline ETL end-to-end sobre GCP</div>
+          <p class="proj-desc">Ingesta, transformación y carga automatizada con PySpark y Airflow. Procesamiento a escala con tolerancia a fallos y orquestación programada sobre Google Cloud Platform.</p>
+          <div class="proj-stack">
+            <span class="ptag">PySpark</span><span class="ptag">Airflow</span><span class="ptag">GCP</span><span class="ptag">Docker</span><span class="ptag">Kafka</span>
+          </div>
+          <a href="https://github.com/CarlosRubenBageta/Examen-Final-Bootcamp-Data-Engineering-9na-ed---Carlos-Ruben-Bageta" target="_blank" class="proj-link">
+            Ver en GitHub
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-accent" style="background: linear-gradient(90deg,#0e6b5a,#1d9e75);"></div>
+          <div class="proj-type">Machine Learning</div>
+          <div class="proj-title">Detector de fraude en e-commerce</div>
+          <p class="proj-desc">Modelo predictivo de clasificación para detección de transacciones fraudulentas. Implementado y desplegado en HuggingFace Spaces con interfaz interactiva.</p>
+          <div class="proj-stack">
+            <span class="ptag">scikit-learn</span><span class="ptag">Python</span><span class="ptag">HuggingFace</span><span class="ptag">pandas</span>
+          </div>
+          <a href="https://huggingface.co/spaces/sichar/Detector_de_fraudes_en_comercio_electronico" target="_blank" class="proj-link">
+            Ver demo en vivo
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-accent" style="background: linear-gradient(90deg,#534AB7,#7f77dd);"></div>
+          <div class="proj-type">Modelado Matemático</div>
+          <div class="proj-title">Dinámica poblacional de Lobesia botrana</div>
+          <p class="proj-desc">Simulación computacional de control de plagas en viñedos mediante modelos matemáticos de sistemas dinámicos implementados en Python. Aplicación directa a la agroindustria mendocina.</p>
+          <div class="proj-stack">
+            <span class="ptag">Python</span><span class="ptag">Sistemas dinámicos</span><span class="ptag">Bioestadística</span><span class="ptag">matplotlib</span>
+          </div>
+          <a href="https://github.com/CarlosRubenBageta/Repositorio-de-modelos-matematicos-para-Lobesia-botrana" target="_blank" class="proj-link">
+            Ver en GitHub
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE MI -->
+  <section id="sobre-mi">
+    <div class="container">
+      <div class="sec-label">Sobre mí</div>
+      <h2 class="sec-title">Matemático, docente y <em>apasionado por los datos</em></h2>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            Soy <strong>Profesor en Matemática y Magíster en Matemática</strong> con más de 25 años de experiencia en docencia universitaria e investigación en sistemas dinámicos y modelado matemático aplicado en la Universidad Nacional de Cuyo.
+          </p>
+          <p>
+            En los últimos años completé tres bootcamps especializados en <strong>Data Science, MLOps y Data Engineering</strong>, incorporando herramientas modernas de IA generativa, automatización con n8n y desarrollo de productos digitales. Esta combinación de rigor académico con práctica técnica actualizada es lo que diferencia mi enfoque.
+          </p>
+          <p>
+            Trabajo de forma remota con clientes de toda LATAM, con especial foco en sectores como <strong>agroindustria, educación, salud y PyMEs</strong> que necesitan incorporar datos e IA a su operación sin armar equipos técnicos grandes. Estoy disponible tanto para proyectos puntuales como para acompañamiento continuo.
+          </p>
+        </div>
+
+        <div class="creds-panel">
+          <div class="creds-header">Formación y trayectoria</div>
+          <div class="cred-item">
+            <div class="cred-dot"></div>
+            <div>
+              <div class="cred-text">Magíster en Matemática</div>
+              <div class="cred-year">Universidad Nacional de San Luis</div>
+            </div>
+          </div>
+          <div class="cred-item">
+            <div class="cred-dot"></div>
+            <div>
+              <div class="cred-text">Bootcamp Data Engineering</div>
+              <div class="cred-year">Escuela de Datos Vivos · 2025</div>
+            </div>
+          </div>
+          <div class="cred-item">
+            <div class="cred-dot"></div>
+            <div>
+              <div class="cred-text">Bootcamp Data Science & MLOps</div>
+              <div class="cred-year">Escuela de Datos Vivos · 2024</div>
+            </div>
+          </div>
+          <div class="cred-item">
+            <div class="cred-dot"></div>
+            <div>
+              <div class="cred-text">Bootcamp Data Science + Data Analyst</div>
+              <div class="cred-year">DesafioLatam · 2025</div>
+            </div>
+          </div>
+          <div class="cred-item">
+            <div class="cred-dot"></div>
+            <div>
+              <div class="cred-text">Automatizaciones con n8n y AI Products</div>
+              <div class="cred-year">2025</div>
+            </div>
+          </div>
+          <div class="cred-item">
+            <div class="cred-dot"></div>
+            <div>
+              <div class="cred-text">Docente universitario · UNCuyo</div>
+              <div class="cred-year">1998 – actualidad</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMACION -->
+  <section id="formacion">
+    <div class="container">
+      <div class="sec-label">Stack técnico</div>
+      <h2 class="sec-title">Herramientas con las que <em>trabajo</em></h2>
+      <p class="sec-desc">Tecnologías que uso en proyectos reales, no solo listadas en un CV.</p>
+
+      <div class="certs-grid">
+        <div class="cert-card">
+          <span class="cert-badge" style="background:var(--accent-lt);color:var(--accent);">Lenguajes</span>
+          <div class="cert-title">Python · R · SQL</div>
+          <div class="cert-inst">pandas, matplotlib, scikit-learn, PySpark</div>
+        </div>
+        <div class="cert-card">
+          <span class="cert-badge" style="background:#eeedfe;color:#534AB7;">Data Engineering</span>
+          <div class="cert-title">Apache Spark · Airflow · Kafka</div>
+          <div class="cert-inst">Docker · Hive · Sqoop · ETL/ELT pipelines</div>
+        </div>
+        <div class="cert-card">
+          <span class="cert-badge" style="background:var(--teal-lt);color:var(--teal);">Cloud & DB</span>
+          <div class="cert-title">Google Cloud Platform · Supabase</div>
+          <div class="cert-inst">BigQuery · GCS · PostgreSQL</div>
+        </div>
+        <div class="cert-card">
+          <span class="cert-badge" style="background:var(--amber-lt);color:var(--amber);">IA & LLMs</span>
+          <div class="cert-title">LLMs · Prompt Engineering · HuggingFace</div>
+          <div class="cert-inst">Claude · ChatGPT · DeepSeek · Google AI Studio</div>
+        </div>
+        <div class="cert-card">
+          <span class="cert-badge" style="background:#fbeaf0;color:#72243E;">Automatización</span>
+          <div class="cert-title">n8n · Make · MCPs</div>
+          <div class="cert-inst">Workflows con IA · APIs · Integraciones</div>
+        </div>
+        <div class="cert-card">
+          <span class="cert-badge" style="background:var(--paper-warm);color:var(--ink-soft);">Visualización</span>
+          <div class="cert-title">Tableau · Excel avanzado</div>
+          <div class="cert-inst">matplotlib · Git · GitHub · Jupyter · VS Code</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="container">
+      <div class="sec-label">Contacto</div>
+      <h2 class="sec-title">¿Hablamos de tu <em>proyecto</em>?</h2>
+      <p class="sec-desc">Contame qué necesitás y te respondo en menos de 24 horas. Trabajo de forma remota con clientes de toda LATAM.</p>
+
+      <div class="contact-row">
+        <a href="mailto:cbageta@fca.uncu.edu.ar" class="contact-btn primary-dark">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="3" width="13" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M1 4.5l6.5 4.5L14 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Escribirme por email
+        </a>
+        <a href="https://linkedin.com/in/crbageta" target="_blank" class="contact-btn">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="0.75" y="0.75" width="13.5" height="13.5" rx="2.25" stroke="currentColor" stroke-width="1.2"/><path d="M3.5 6v5.5M3.5 4v.5M6 11.5V8.5c0-1.38 1.12-2.5 2.5-2.5S11 7.12 11 8.5v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/CarlosRubenBageta" target="_blank" class="contact-btn">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 0.5C3.91 0.5 1 3.41 1 7c0 2.87 1.86 5.3 4.44 6.16.32.06.44-.14.44-.31v-1.09c-1.8.39-2.18-.87-2.18-.87-.3-.75-.72-.95-.72-.95-.59-.4.04-.4.04-.4.65.05 1 .67 1 .67.58 1 1.52.71 1.89.54.06-.42.23-.71.41-.87-1.43-.16-2.94-.72-2.94-3.19 0-.7.25-1.28.67-1.73-.07-.16-.29-.82.06-1.71 0 0 .54-.17 1.78.67A6.2 6.2 0 0 1 7.5 4.42c.55 0 1.1.07 1.62.22 1.23-.84 1.77-.67 1.77-.67.35.89.13 1.55.06 1.71.42.45.67 1.03.67 1.73 0 2.48-1.51 3.03-2.95 3.19.23.2.44.59.44 1.19v1.77c0 .17.11.37.44.31A6.51 6.51 0 0 0 14 7c0-3.59-2.91-6.5-6.5-6.5Z" fill="currentColor"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-logo">Carlos <em>Bageta</em></span>
+        <span>© 2025 · Mendoza, Argentina · cbageta@fca.uncu.edu.ar</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

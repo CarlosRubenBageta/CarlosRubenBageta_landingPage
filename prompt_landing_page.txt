@@ -1,0 +1,118 @@
+#########################
+# PROMPT LANDING PAGE
+#########################
+
+Quiero que transformes mi landing page actual en una versión más profesional, moderna, elegante y orientada a conversión, manteniendo el contenido principal, pero mejorando fuertemente el diseño visual, la jerarquía, la experiencia de usuario y la percepción de valor profesional.
+
+## Contexto
+La landing corresponde al sitio profesional de Carlos Rubén Bageta, consultor en Data, IA, automatización, Data Engineering, Data Science y modelado matemático aplicado.
+El perfil combina:
+- rigor académico y matemático
+- experiencia docente universitaria
+- consultoría en datos e inteligencia artificial
+- foco en PyMEs, empresas y organizaciones que quieren aplicar datos e IA a problemas reales
+
+## Objetivo del rediseño
+Quiero una landing más sólida visualmente, con estética profesional y tecnológica, que transmita:
+- confianza
+- expertise técnico real
+- claridad de servicios
+- cercanía profesional
+- capacidad de resolver problemas de negocio con datos e IA
+
+Debe verse como la web de un consultor serio y actualizado, no como una plantilla genérica.
+
+## Instrucciones generales de diseño
+- Mantener una estética moderna, limpia y premium.
+- Mejorar notablemente tipografía, espaciados, composición, contraste y jerarquía visual.
+- Hacer que el hero section tenga más impacto.
+- Dar más protagonismo a los llamados a la acción.
+- Usar diseño responsive.
+- Mantener un estilo sobrio y profesional, evitando excesos visuales.
+- Puede conservar una paleta elegante similar a la actual, pero refinada.
+- Incorporar mejores tarjetas, sombras suaves, mejores bordes, mejores alineaciones y una grilla más profesional.
+- Si lo consideras conveniente, puedes reorganizar secciones o mejorar el orden narrativo para aumentar conversión.
+- No conviertas la web en algo recargado ni excesivamente “startup genérica”.
+- Quiero una sensación de consultoría técnica de alto nivel con cercanía humana.
+
+## Sobre la estructura actual
+La landing actual incluye estas secciones:
+- Navbar
+- Hero principal
+- Servicios
+- Proyectos
+- Sobre mí
+- Stack técnico / formación
+- Contacto
+
+Mantén estas secciones como base, pero puedes refinarlas visualmente, subdividir contenido o mejorar su presentación.
+
+## Requisitos específicos muy importantes
+
+### 1) Foto real en lugar del avatar con iniciales
+Actualmente hay un avatar con iniciales.
+Quiero que reemplaces ese bloque por una foto real profesional.
+
+Pero como todavía no adjunté la imagen definitiva, debes dejar implementado el componente visual para una foto real y además indicarme explícitamente que debo:
+- agregar una foto profesional real
+- idealmente de medio cuerpo o retrato profesional
+- con fondo neutro o limpio
+- en buena resolución
+
+Mientras no esté la imagen, puedes dejar un placeholder visual elegante que simule una foto profesional, pero el diseño debe estar pensado para una imagen real, no para un avatar con iniciales.
+
+### 2) Preparar el botón/email para evolucionar a formulario real con Supabase
+Actualmente el contacto está resuelto con un botón o enlace de email.
+Quiero que rediseñes la sección de contacto para que quede lista para evolucionar a un formulario real conectado con Supabase.
+
+Instrucciones:
+- Puedes mantener temporalmente un botón de email o una versión simple del contacto.
+- Pero deja planteada una versión de formulario profesional con campos como:
+  - nombre
+  - email
+  - empresa o proyecto
+  - mensaje
+- El formulario no necesita quedar 100% funcional ahora, pero sí debe quedar preparado estructuralmente para conectarse luego con Supabase.
+- Agrega comentarios claros en el código indicando dónde conectar Supabase después.
+- Si decides implementarlo con React/Next.js y componentes modernos, mejor.
+- Piensa el diseño del formulario como una futura captación real de leads.
+- Debe quedar claro en la UI que el visitante puede dejar una consulta profesional.
+
+## Requisitos técnicos
+- Genera una versión frontend profesional.
+- Prioriza una implementación limpia y reutilizable.
+- Puedes usar React + Tailwind + shadcn/ui si eso mejora el resultado.
+- Si la mejor opción es migrar desde HTML estático a una estructura moderna de componentes, hazlo.
+- Mantén el contenido en español.
+- Conserva los enlaces a GitHub y LinkedIn.
+- Mejora la presentación de proyectos y servicios para que se lean más claros y más vendibles.
+- Optimiza el diseño para desktop y mobile.
+
+## Tono visual deseado
+Quiero una combinación de:
+- consultoría tecnológica
+- solvencia académica
+- profesionalismo sobrio
+- diseño moderno
+- claridad comercial
+
+Evitar:
+- estilo demasiado infantil
+- exceso de colores chillones
+- apariencia de template genérico
+- estética excesivamente minimalista que haga perder contenido
+- exceso de animaciones innecesarias
+
+## Copy / UX
+Puedes mejorar microcopys, títulos, subtítulos y CTAs para que la landing comunique mejor valor.
+No inventes experiencia falsa ni métricas dudosas.
+Puedes reescribir textos para hacerlos más claros, más persuasivos y más profesionales, manteniendo honestidad y coherencia con el perfil.
+
+## Entregable esperado
+Quiero que generes una nueva versión completa de la landing page:
+- visualmente superior
+- más profesional
+- mejor estructurada
+- preparada para incorporar una foto real
+- preparada para conectar un formulario con Supabase más adelante
+- manteniendo el contenido principal y el objetivo comercial del sitio
