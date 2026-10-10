@@ -32,6 +32,16 @@ const projects = [
     linkText: "Ver en GitHub",
     gradient: "from-[#534AB7] to-[#7f77dd]",
   },
+  {
+    type: "Automatización con IA",
+    title: "Automatización de tareas Gmail → Google Sheets",
+    description:
+      "Pipeline en producción que procesa los correos entrantes, extrae tareas con un LLM y las registra en tableros de Google Sheets. Incluye filtros determinísticos, idempotencia, alertas y un plan de implementación por fases con auditoría.",
+    tags: ["Google Apps Script", "OpenAI API", "Gmail", "Google Sheets", "LLM"],
+    link: "https://github.com/CarlosRubenBageta/PLAN_IMPLEMENTACION_AUTOMATIZACION_TAREAS_ALIADATA",
+    linkText: "Ver en GitHub",
+    gradient: "from-amber to-[#e08a2e]",
+  },
 ]
 
 export function Projects() {
@@ -59,7 +69,7 @@ export function Projects() {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2">
           {projects.map((project) => (
             <article
               key={project.title}
